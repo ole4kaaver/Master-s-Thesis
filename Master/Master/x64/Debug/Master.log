@@ -1,0 +1,10 @@
+﻿  Filtration.cpp
+C:\Users\olga\source\repos\Master\Master\Filtration.h(46,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\source\repos\Master\Master\Filtration.h(65,8): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\source\repos\Master\Master\Filtration.h(64,11): warning C4101: ss: неиспользованная локальная переменная
+  Main.cpp
+C:\Users\olga\source\repos\Master\Master\Filtration.h(46,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\source\repos\Master\Master\Filtration.h(65,8): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\source\repos\Master\Master\Filtration.h(64,11): warning C4101: ss: неиспользованная локальная переменная
+  Создание кода...
+  Master.vcxproj -> C:\Users\olga\source\repos\Master\x64\Debug\Master.exe
