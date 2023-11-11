@@ -1,10 +1,23 @@
 ﻿  Filtration.cpp
-C:\Users\olga\source\repos\Master\Master\Filtration.h(46,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\olga\source\repos\Master\Master\Filtration.h(65,8): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\olga\source\repos\Master\Master\Filtration.h(64,11): warning C4101: ss: неиспользованная локальная переменная
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\Filtration.h(46,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\Filtration.h(65,8): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\Filtration.h(64,11): warning C4101: ss: неиспользованная локальная переменная
+  InitAndFEM.cpp
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\InitAndFEM.cpp(14,4): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\InitAndFEM.cpp(25,4): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\InitAndFEM.cpp(39,4): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\InitAndFEM.cpp(50,4): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\InitAndFEM.cpp(117,18): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\InitAndFEM.cpp(227,45): warning C4267: =: преобразование из "size_t" в "_Ty"; возможна потеря данных
+          with
+          [
+              _Ty=int
+          ]
   Main.cpp
-C:\Users\olga\source\repos\Master\Master\Filtration.h(46,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\olga\source\repos\Master\Master\Filtration.h(65,8): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\olga\source\repos\Master\Master\Filtration.h(64,11): warning C4101: ss: неиспользованная локальная переменная
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\Filtration.h(46,15): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\Filtration.h(65,8): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\Filtration.h(64,11): warning C4101: ss: неиспользованная локальная переменная
   Создание кода...
-  Master.vcxproj -> C:\Users\olga\source\repos\Master\x64\Debug\Master.exe
+C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\Master\InitAndFEM.cpp(60): warning C4715: InitAndFEM::Function_nu_in_point: значение возвращается не при всех путях выполнения
+  LINK : не найден или не выполнена сборка C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\x64\Debug\Master.exe при последней инкрементной компоновке; выполняется полная компоновка
+  Master.vcxproj -> C:\Users\olga\Masters-s-Thesis\Master-s-Thesis\Master\x64\Debug\Master.exe
