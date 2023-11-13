@@ -130,6 +130,7 @@
     <ClCompile Include="Filtration.cpp" />
     <ClCompile Include="InitAndFEM.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Objects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Filtration.h" />

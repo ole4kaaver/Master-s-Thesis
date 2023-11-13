@@ -58,7 +58,7 @@ public:
 	double gridBegin, gridEnd, dischargeRatio;
 	int numberOfPartitions;
 	double tBegin, tEnd, dt;
-	vector <FiniteElement> elements;
+	//vector <FiniteElement> elements;
 
 	void ReadingGrid(string grid)
 	{
@@ -68,19 +68,19 @@ public:
 		fGrid >> tBegin >> tEnd >> dt;
 	}
 
-	void BuildingGrid(vector <FiniteElement> elements)
-	{
-		double h;
-		double length = gridEnd - gridBegin;
-		if (dischargeRatio != 1)
-		{
-			if (dischargeRatio < 0)
-				dischargeRatio = 1 / abs(dischargeRatio);
-			h = length * (1 - dischargeRatio) / (1 - pow(dischargeRatio, numberOfPartitions));
-		}
-		else h = length / numberOfPartitions;
-		// заполнение массива elements
-	}
+	//void BuildingGrid(vector <FiniteElement> elements)
+	//{
+	//	double h;
+	//	double length = gridEnd - gridBegin;
+	//	if (dischargeRatio != 1)
+	//	{
+	//		if (dischargeRatio < 0)
+	//			dischargeRatio = 1 / abs(dischargeRatio);
+	//		h = length * (1 - dischargeRatio) / (1 - pow(dischargeRatio, numberOfPartitions));
+	//	}
+	//	else h = length / numberOfPartitions;
+	//	// заполнение массива elements
+	//}
 
 	void ReadingParameters(string parameters)
 	{
@@ -95,7 +95,7 @@ public:
 	Init(string grid, string parameters)
 	{
 		ReadingGrid(grid);
-		elements.resize(numberOfPartitions);
-		BuildingGrid(elements);
+		//elements.resize(numberOfPartitions);
+		//BuildingGrid(elements);
 	}
 };
