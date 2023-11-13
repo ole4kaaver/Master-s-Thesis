@@ -43,16 +43,12 @@ class FiniteElement
 public:
 	int number;
 	double xBegin, xEnd;
-	list <Phase> phases;
-	list <Component> components;
 
-	FiniteElement(int num, double x1, double x2, list <Phase> phasesCur, list <Component> componentsCur)
+	FiniteElement(int num, double x1, double x2)
 	{
 		number = num;
 		xBegin = x1;
 		xEnd = x2;
-		phases = phasesCur;
-		components = componentsCur;
 	}
 };
 
@@ -83,20 +79,17 @@ public:
 			h = length * (1 - dischargeRatio) / (1 - pow(dischargeRatio, numberOfPartitions));
 		}
 		else h = length / numberOfPartitions;
+		// заполнение массива elements
 	}
 
 	void ReadingParameters(string parameters)
 	{
 		ifstream fParam;
 		fParam.open(parameters + ".txt");
-		int count = 0;
-		fParam >> count;
-		for (int i = 0; i < count; i++)
-		{
-			
-		}
-
-
+		int countPhase, countComponent = 0;
+		fParam >> countComponent;
+		// чтение кол-ва фаз
+		// цикл по фазам (номер фазы, хар-ки, кол-во составляющих компонент, хар-ки компонент)
 	}
 
 	Init(string grid, string parameters)
