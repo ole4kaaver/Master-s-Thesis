@@ -1,4 +1,2 @@
 ﻿  Objects.cpp
-C:\Users\olga\GitHubMastersThesis\Master-s-Thesis\Master\Master\Objects.cpp(89,7): warning C4101: countPhase: неиспользованная локальная переменная
-  LINK : не найден или не выполнена сборка C:\Users\olga\GitHubMastersThesis\Master-s-Thesis\Master\x64\Debug\Master.exe при последней инкрементной компоновке; выполняется полная компоновка
   Master.vcxproj -> C:\Users\olga\GitHubMastersThesis\Master-s-Thesis\Master\x64\Debug\Master.exe
