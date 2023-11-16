@@ -73,8 +73,9 @@ public:
 	double gridBegin, gridEnd, dischargeRatio;
 	int numberOfPartitions;
 	double tBegin, tEnd, dt;
-	vector<Phase> phases;
+	vector <Phase> phases;
 	vector <FiniteElement> elements;
+	vector <vector<double>> discreteNuFunc;
 
 	void ReadingGrid(string grid)
 	{
@@ -141,10 +142,27 @@ public:
 		}
 	}
 
-	Init(string grid, string parameters)
+	void Reading_viscosity_of_water(string nuWaterPhase)
+	{
+		ifstream fNuWaterPhase;
+
+		fNuWaterPhase.open(nuWaterPhase + ".txt");
+
+		int discreteNuFuncSize;
+		fNuWaterPhase >> discreteNuFuncSize;
+		discreteNuFunc.resize(discreteNuFuncSize);
+		for (int i = 0; i < discreteNuFuncSize; i++)
+		{
+			discreteNuFunc[i].resize(2);
+			fNuWaterPhase >> discreteNuFunc[i][0] >> discreteNuFunc[i][1];
+		}
+	}
+
+	Init(string grid, string parameters, string nuWaterPhase)
 	{
 		ReadingGrid(grid);
 		elements.resize(numberOfPartitions);
 		BuildingGrid();
+		Reading_viscosity_of_water(nuWaterPhase);
 	}
 };

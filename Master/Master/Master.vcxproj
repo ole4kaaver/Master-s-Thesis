@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FEM.cpp" />
     <ClCompile Include="Filtration.cpp" />
     <ClCompile Include="InitAndFEM.cpp" />
     <ClCompile Include="Main.cpp" />

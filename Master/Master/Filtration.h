@@ -24,7 +24,7 @@ public:
 		Reading_parameters(parameters);
 		Reading_viscosity_of_water(nu_water);
 		Init();
-		Portrait();
+		//Portrait();
 
 		fpressure.open(pressure + ".txt");
 		fcalc.open(saturation + ".txt");

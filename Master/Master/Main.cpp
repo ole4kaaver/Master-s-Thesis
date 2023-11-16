@@ -1,6 +1,7 @@
 #pragma once
 #include "Filtration.h"
 //#include "Objects.cpp"
+//#include "FEM.cpp"
 
 int main()
 {
@@ -11,6 +12,7 @@ int main()
 
 //int main()
 //{
-//	Init Object = Init("grid", "parameters");
+//	Init Object = Init("grid", "parameters", "nuWaterPhase");
+//	FEM(Object);
 //	return 0;
 //}
