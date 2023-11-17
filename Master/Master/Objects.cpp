@@ -1,168 +1,107 @@
-#include <vector>
-#include <fstream>
-#include <iostream>
-#include <list>
-using namespace std;
+#include "Objects.h"
 
-class Component
+void Init::ReadingGrid(string grid)
 {
-public:
-	int number;
-	double massFraction;
-	double amountOfSubstance;
+	ifstream fGrid;
+	fGrid.open(grid + ".txt");
+	fGrid >> gridBegin >> gridEnd >> numberOfPartitions >> dischargeRatio;
+	fGrid >> tBegin >> tEnd >> dt;
+}
 
-	Component(int num, double massFrac, double amountOfSub)
-	{
-		number = num;
-		massFraction = massFrac;
-		amountOfSubstance = amountOfSub;
-	}
-	Component()
-	{
-
-	}
-};
-
-class Phase
+void Init::BuildingGrid()
 {
-public:
-	int number;
-	double saturation;
-	double multiplierToPhasePermeability;
-	double viscosity;
-	double density;
-	vector <Component> components;
-
-	Phase(int num, double satur, double multiplierToPhasePerm, double viscos, double den, vector <Component> comp)
+	elements.resize(numberOfPartitions);
+	double h;
+	double length = gridEnd - gridBegin;
+	if (dischargeRatio != 1)
 	{
-		number = num;
-		saturation = satur;
-		multiplierToPhasePermeability = multiplierToPhasePerm;
-		viscosity = viscos;
-		density = den;
-		components = comp;
+		if (dischargeRatio < 0)
+			dischargeRatio = 1 / abs(dischargeRatio);
+		h = length * (1 - dischargeRatio) / (1 - pow(dischargeRatio, numberOfPartitions));
 	}
-	Phase()
+	else h = length / numberOfPartitions;
+
+	// заполнение массива elements
+	double coordCur = 0;
+	for (int i = 0; i < numberOfPartitions; i++)
 	{
-
+		elements[i] = FiniteElement(i, coordCur, coordCur + h);
+		coordCur = coordCur + h;
+		h = h * dischargeRatio;
 	}
-	
-};
+}
 
-class FiniteElement
+void Init::ReadingParameters(string parameters)
 {
-public:
-	int number;
-	double xBegin, xEnd;
+	ifstream fParam;
+	fParam.open(parameters + ".txt");
+	int countPhase, countComponent = 0;
+	int numberPhase;
+	vector <double> saturationCur;
+	vector <double> multiplierToPhasePermeabilityCur;
+	vector <double> viscosityCur;
+	vector <double> densityCur;
 
-	FiniteElement(int num, double x1, double x2)
+	int numberComponent;
+	vector <double> massFractionCur;
+	vector <double> amountOfSubstanceCur;
+	vector<Component> components;
+
+	saturationCur.resize(elements.size());
+	multiplierToPhasePermeabilityCur.resize(elements.size());
+	viscosityCur.resize(elements.size());
+	densityCur.resize(elements.size());
+	massFractionCur.resize(elements.size());
+	amountOfSubstanceCur.resize(elements.size());
+
+	// чтение параметров породы
+
+	fParam >> F >> K >> Q0;
+
+	/*чтение кол-ва фаз
+	цикл по фазам (номер фазы, хар-ки, кол-во составляющих компонент, хар-ки компонент)*/
+	fParam >> countPhase;
+	phases.resize(countPhase);
+
+	for (int i = 0; i < countPhase; i++)
 	{
-		number = num;
-		xBegin = x1;
-		xEnd = x2;
-	}
-	FiniteElement()
-	{
+		fParam >> numberPhase;
+		for (int k = 0; k < elements.size(); k++)
+			fParam >> saturationCur[k];
+		for (int k = 0; k < elements.size(); k++)
+			fParam >> multiplierToPhasePermeabilityCur[k];
+		for (int k = 0; k < elements.size(); k++)
+			fParam >> viscosityCur[k];
+		for (int k = 0; k < elements.size(); k++)
+			fParam >> densityCur[k];
 
+		fParam >> countComponent;
+		components.resize(countComponent);
+		for (int j = 0; j < countComponent; j++)
+		{
+			fParam >> numberComponent;
+			for (int k = 0; k < elements.size(); k++)
+				fParam >> massFractionCur[k];
+			for (int k = 0; k < elements.size(); k++)
+				fParam >> amountOfSubstanceCur[k];
+			components[j] = Component(numberComponent, massFractionCur, amountOfSubstanceCur);
+		}
+		phases[i] = Phase(numberPhase, saturationCur, multiplierToPhasePermeabilityCur, viscosityCur, densityCur, components);
 	}
-};
+}
 
-class Init
+void Init::Reading_viscosity_of_water(string nuWaterPhase)
 {
-public:
-	double gridBegin, gridEnd, dischargeRatio;
-	int numberOfPartitions;
-	double tBegin, tEnd, dt;
-	vector <Phase> phases;
-	vector <FiniteElement> elements;
-	vector <vector<double>> discreteNuFunc;
+	ifstream fNuWaterPhase;
 
-	void ReadingGrid(string grid)
+	fNuWaterPhase.open(nuWaterPhase + ".txt");
+
+	int discreteNuFuncSize;
+	fNuWaterPhase >> discreteNuFuncSize;
+	discreteNuFunc.resize(discreteNuFuncSize);
+	for (int i = 0; i < discreteNuFuncSize; i++)
 	{
-		ifstream fGrid;
-		fGrid.open(grid + ".txt");
-		fGrid >> gridBegin >> gridEnd >> numberOfPartitions >> dischargeRatio;
-		fGrid >> tBegin >> tEnd >> dt;
+		discreteNuFunc[i].resize(2);
+		fNuWaterPhase >> discreteNuFunc[i][0] >> discreteNuFunc[i][1];
 	}
-
-	void BuildingGrid()
-	{
-		double h;
-		double length = gridEnd - gridBegin;
-		if (dischargeRatio != 1)
-		{
-			if (dischargeRatio < 0)
-				dischargeRatio = 1 / abs(dischargeRatio);
-			h = length * (1 - dischargeRatio) / (1 - pow(dischargeRatio, numberOfPartitions));
-		}
-		else h = length / numberOfPartitions;
-
-		// заполнение массива elements
-		double coordCur = 0;
-		for (int i = 0; i < numberOfPartitions; i++)
-		{
-			elements[i] = FiniteElement(i, coordCur, coordCur + h);
-			coordCur = coordCur + h;
-			h = h * dischargeRatio;
-		}
-	}
-
-	void ReadingParameters(string parameters)
-	{
-		ifstream fParam;
-		fParam.open(parameters + ".txt");
-		int countPhase, countComponent = 0;
-		int numberPhase;
-		double saturationCur;
-		double multiplierToPhasePermeabilityCur;
-		double viscosityCur;
-		double densityCur;
-
-		int numberComponent;
-		double massFractionCur;
-		double amountOfSubstanceCur;
-		vector<Component> components;
-		
-		 /*чтение кол-ва фаз
-		 цикл по фазам (номер фазы, хар-ки, кол-во составляющих компонент, хар-ки компонент)*/
-		fParam >> countPhase;
-		phases.resize(countPhase);
-		
-		for (int i = 0; i < countPhase; i++)
-		{
-			fParam >> numberPhase >> saturationCur >> multiplierToPhasePermeabilityCur >> viscosityCur >> densityCur;
-			fParam >> countComponent;
-			components.resize(countComponent);
-			for (int j = 0; j < countComponent; j++)
-			{
-				fParam >> numberComponent >> massFractionCur >> amountOfSubstanceCur;
-				components[j] = Component(numberComponent, massFractionCur, amountOfSubstanceCur);
-			}
-			phases[i] = Phase(numberPhase, saturationCur, multiplierToPhasePermeabilityCur, viscosityCur, densityCur, components);
-		}
-	}
-
-	void Reading_viscosity_of_water(string nuWaterPhase)
-	{
-		ifstream fNuWaterPhase;
-
-		fNuWaterPhase.open(nuWaterPhase + ".txt");
-
-		int discreteNuFuncSize;
-		fNuWaterPhase >> discreteNuFuncSize;
-		discreteNuFunc.resize(discreteNuFuncSize);
-		for (int i = 0; i < discreteNuFuncSize; i++)
-		{
-			discreteNuFunc[i].resize(2);
-			fNuWaterPhase >> discreteNuFunc[i][0] >> discreteNuFunc[i][1];
-		}
-	}
-
-	Init(string grid, string parameters, string nuWaterPhase)
-	{
-		ReadingGrid(grid);
-		elements.resize(numberOfPartitions);
-		BuildingGrid();
-		Reading_viscosity_of_water(nuWaterPhase);
-	}
-};
+}

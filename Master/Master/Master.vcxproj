@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CalcDeltaV.cpp" />
     <ClCompile Include="FEM.cpp" />
     <ClCompile Include="Filtration.cpp" />
     <ClCompile Include="InitAndFEM.cpp" />
@@ -134,8 +135,10 @@
     <ClCompile Include="Objects.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FEM.h" />
     <ClInclude Include="Filtration.h" />
     <ClInclude Include="InitAndFEM.h" />
+    <ClInclude Include="Objects.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

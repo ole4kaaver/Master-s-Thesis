@@ -1,7 +1,6 @@
 #pragma once
-#include "Filtration.h"
-#include "Objects.cpp"
-#include "FEM.cpp"
+//#include "Filtration.h"
+#include "FEM.h"
 
 //int main()
 //{
@@ -12,9 +11,7 @@
 
 int main()
 {
-	Init Object = Init("grid", "parameters", "nuWaterPhase");
-	FEM Method = FEM(Object.elements);
-	Filtration(Method.y);
-
-	return 0;
+	Init Object = Init("grid1", "parameters1", "nuWaterPhase1");
+	FEM Method = FEM(Object);
+	//CalcDeltaV Calc = CalcDeltaV(Method.y);
 }

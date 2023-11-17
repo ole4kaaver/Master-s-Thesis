@@ -30,12 +30,21 @@
     <ClCompile Include="FEM.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="CalcDeltaV.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InitAndFEM.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Filtration.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="FEM.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
