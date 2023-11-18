@@ -34,6 +34,7 @@ public:
 	vector <double> alfa;
 	vector <Component> components;
 	vector <double> flow;
+	vector <double> volumeCur, volumeIn, volumeOut;
 
 	Phase(int num, vector <double> satur, vector <double> multiplierToPhasePerm, vector <double> viscos,
 		vector <double> den, vector <Component> comp)

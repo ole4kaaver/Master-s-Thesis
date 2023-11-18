@@ -133,8 +133,10 @@
     <ClCompile Include="InitAndFEM.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Objects.cpp" />
+    <ClCompile Include="СalcOverflows.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CalcOverflows.h" />
     <ClInclude Include="FEM.h" />
     <ClInclude Include="Filtration.h" />
     <ClInclude Include="InitAndFEM.h" />

@@ -46,19 +46,13 @@ void CalcOverflows::TimeStep(Init Object)
 	}
 }
 
-void CalcOverflows::PhaseVolumesAndSaturations()
+void CalcOverflows::PhaseVolumesAndSaturations(Init Object)
 {
-
+	Object.phases[0].volumeOut.resize(Object.elements.size() + 1);
+	Object.phases[1].volumeOut.resize(Object.elements.size() + 1);
 	for (int e = 0; e < Object.elements.size() + 1; e++)
-	{
 		for (int m = 0; m < 2; m++)
-		{
-			V_out[m][e] = Q_m[m][e] * dt;
-		}
-	}
-
-	fcalc << endl << "V_water_in: " << V_out[0][0];
-	fcalc << endl << "V_oil_in: " << V_out[1][0] << endl;
+			Object.phases[m].volumeOut[e] = Object.phases[m].flow[e] * Object.dt;
 
 	bool flag = false;
 	double fraction_of_oil = 0.0;
