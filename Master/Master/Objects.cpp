@@ -55,7 +55,10 @@ void Init::ReadingParameters(string parameters)
 	amountOfSubstanceCur.resize(elements.size());
 
 	// чтение параметров породы
-	fParam >> porosity >> permeability >> flow0 >> crossSectionalArea;
+	fParam >> porosity >> permeability;
+	fParam >> crossSectionalArea;
+	fParam >> flow0;
+	fParam >> saturationOilCrit >> saturationOilRes;
 
 	/*чтение кол-ва фаз
 	цикл по фазам (номер фазы, хар-ки, кол-во составляющих компонент, хар-ки компонент)*/

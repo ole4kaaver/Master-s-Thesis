@@ -34,6 +34,7 @@ public:
 	vector <double> alfa;
 	vector <Component> components;
 	vector <double> flow;
+	vector <double> volumeCur, volumeIn, volumeOut;
 
 	Phase(int num, vector <double> satur, vector <double> multiplierToPhasePerm, vector <double> viscos,
 		vector <double> den, vector <Component> comp)
@@ -82,6 +83,7 @@ public:
 	vector <double> flow;
 	double flow0; // начальный поток
 	double permeability, porosity, crossSectionalArea; // структурная проницаемость, структурная пористость, площадь сечения керна
+	double saturationOilCrit, saturationOilRes;
 
 	void ReadingGrid(string grid);
 

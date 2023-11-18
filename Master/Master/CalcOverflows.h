@@ -8,17 +8,17 @@ class CalcOverflows
 public:
 	void PhaseFlows(Init Object, vector <double> pressure);
 
-	void TimeStep();
+	void TimeStep(Init Object);
 
-	void PhaseVolumesAndSaturations();
+	void PhaseVolumesAndSaturations(Init Object);
 
 	void ÑomponentProperties();
 
 	CalcOverflows(Init Object, vector <double> pressure)
 	{
 		PhaseFlows(Object, pressure);
-		TimeStep();
-		PhaseVolumesAndSaturations();
+		TimeStep(Object);
+		PhaseVolumesAndSaturations(Object);
 		ÑomponentProperties();
 
 		fxi << endl;
