@@ -82,6 +82,7 @@ public:
 	vector <double> flow;
 	double flow0; // начальный поток
 	double permeability, porosity, crossSectionalArea; // структурная проницаемость, структурная пористость, площадь сечения керна
+	double saturationOilCrit, saturationOilRes;
 
 	void ReadingGrid(string grid);
 

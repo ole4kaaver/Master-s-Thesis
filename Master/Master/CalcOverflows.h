@@ -8,7 +8,7 @@ class CalcOverflows
 public:
 	void PhaseFlows(Init Object, vector <double> pressure);
 
-	void TimeStep();
+	void TimeStep(Init Object);
 
 	void PhaseVolumesAndSaturations();
 

@@ -20,7 +20,8 @@ void CalcOverflows::PhaseFlows(Init Object, vector <double> pressure)
 		//Q[e] = Q[0];
 		mult1 = Object.phases[0].multiplierToPhasePermeability[e] / Object.phases[0].viscosity[e];
 		mult2 = Object.phases[1].multiplierToPhasePermeability[e] / Object.phases[1].viscosity[e];
-		Object.flow[e] = Object.crossSectionalArea * Object.permeability * (mult1 + mult2) * (pressure[e] - pressure[e - 1]) / (Object.elements[e - 1].xEnd - Object.elements[e - 1].xBegin);
+		Object.flow[e] = Object.crossSectionalArea * Object.permeability * (mult1 + mult2) * (pressure[e] - pressure[e - 1]) 
+			/ (Object.elements[e - 1].xEnd - Object.elements[e - 1].xBegin);
 	}
 
 	Object.phases[0].flow.resize(Object.elements.size() + 1);
@@ -30,18 +31,19 @@ void CalcOverflows::PhaseFlows(Init Object, vector <double> pressure)
 			Object.phases[m].flow[e] = Object.phases[m].alfa[e] * fabs(Object.flow[e]);
 }
 
-void CalcOverflows::TimeStep()
+void CalcOverflows::TimeStep(Init Object)
 {
+	double dt1;
 	for (int e = 1; e < Object.elements.size() + 1; e++)
 	{
-		if (s[1][e] > s_crit_oil)
+		if (Object.phases[1].saturation[e] > Object.saturationOilCrit)
 		{
-			dt1 = fabs(nodes[e] - nodes[e - 1]) * s_s * (s[1][e] - s_res_oil) * F / Q_m[1][e];
-			if (dt1 < dt)
-				dt = dt1;
+			dt1 = fabs(Object.elements[e - 1].xEnd - Object.elements[e - 1].xBegin) * Object.crossSectionalArea * 
+				(Object.phases[1].saturation[e] - Object.saturationOilRes) * Object.porosity / Object.phases[1].flow[e];
+			if (dt1 < Object.dt)
+				Object.dt = dt1;
 		}
 	}
-	fcalc << endl << "dt: " << dt;
 }
 
 void CalcOverflows::PhaseVolumesAndSaturations()
