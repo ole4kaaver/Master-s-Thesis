@@ -5,6 +5,11 @@ double FEM::Test(double x)
 	return x;
 }
 
+double FEM::F(double x)
+{
+	return 0;
+}
+
 void FEM::Portrait(vector <FiniteElement> elements)
 {
 	ia.resize(elements.size() + 2);
@@ -27,14 +32,20 @@ void FEM::Portrait(vector <FiniteElement> elements)
 
 void FEM::BuildingGLocal(int number, Init Object)
 {
-	for (int ii = 0; ii < 2; ii++)
-		matrixG[ii].resize(2);
-	double multiplier = Object.K * (Object.phases[0].multiplierToPhasePermeability[number] / 1 + Object.phases[1].multiplierToPhasePermeability[number] / 1) 
-		/ (1.0 * (Object.elements[number].xEnd - Object.elements[number].xBegin));
+	double multiplier = Object.K * (Object.phases[0].multiplierToPhasePermeability[number] / 
+		Object.phases[0].viscosity[number] + Object.phases[1].multiplierToPhasePermeability[number] / Object.phases[1].viscosity[number])
+		/ (Object.elements[number].xEnd - Object.elements[number].xBegin);
 	matrixG[0][0] = multiplier;
 	matrixG[0][1] = -multiplier;
 	matrixG[1][0] = -multiplier;
 	matrixG[1][1] = multiplier;
+}
+
+void FEM::BuildingBLocal(int number, Init Object)
+{
+	double multiplier = (Object.elements[number].xEnd - Object.elements[number].xBegin) / 6.0;
+	localB[0] = multiplier * (2.0 * F(Object.elements[number].xBegin) + F(Object.elements[number].xEnd));
+	localB[1] = multiplier * (F(Object.elements[number].xBegin) + 2.0 * F(Object.elements[number].xEnd));
 }
 
 void FEM::LUDecomposition(int n)

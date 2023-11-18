@@ -31,7 +31,9 @@ public:
 	vector <double> multiplierToPhasePermeability;
 	vector <double> viscosity;
 	vector <double> density;
+	vector <double> alfa;
 	vector <Component> components;
+	vector <double> flow;
 
 	Phase(int num, vector <double> satur, vector <double> multiplierToPhasePerm, vector <double> viscos,
 		vector <double> den, vector <Component> comp)
@@ -77,8 +79,9 @@ public:
 	vector <Phase> phases;
 	vector <FiniteElement> elements;
 	vector <vector<double>> discreteNuFunc;
-	double Q0; // начальный поток
-	double K, F; // структурная проницаемость, структурная пористость
+	vector <double> flow;
+	double flow0; // начальный поток
+	double permeability, porosity, crossSectionalArea; // структурная проницаемость, структурная пористость, площадь сечения керна
 
 	void ReadingGrid(string grid);
 

@@ -3,6 +3,7 @@
 #include <set>
 using namespace std;
 #include "Objects.h"
+#define test
 
 class FEM
 {
@@ -15,14 +16,19 @@ public:
 	vector<double> al, au, di;
 	vector<vector<double>> matrixG;
 	vector<vector<double>> elementConnections;
-	vector<double> globalB;
+	vector<double> globalB, localB;
 	vector<double> y;
 
+#ifdef test
 	double Test(double x);
+	double F(double x);
+#endif
 
 	void Portrait(vector <FiniteElement> elements);
 
 	void BuildingGLocal(int number, Init Object);
+
+	void BuildingBLocal(int number, Init Object);
 
 	void LUDecomposition(int n);
 
@@ -38,18 +44,23 @@ public:
 	{
 		Portrait(Object.elements);
 		matrixG.resize(2);
-		al.resize(ia[ia.size() - 1], 0);
-		au.resize(ia[ia.size() - 1], 0);
-		di.resize(ia.size() - 1);
-		globalB.resize(ia.size() - 1);
+		for (int ii = 0; ii < 2; ii++)
+			matrixG[ii].resize(2, 0.0);
+		localB.resize(2);
+		al.resize(ia[ia.size() - 1], 0.0);
+		au.resize(ia[ia.size() - 1], 0.0);
+		di.resize(Object.elements.size() + 1, 0.0);
+		globalB.resize(Object.elements.size() + 1, 0.0);
 		double h;
 		for (int itemNumber = 0; itemNumber < Object.elements.size(); itemNumber++) // по каждому элементу
 		{
 			h = Object.elements[itemNumber].xEnd - Object.elements[itemNumber].xBegin;
 			BuildingGLocal(itemNumber, Object);
+			BuildingBLocal(itemNumber, Object);
 
 			for (int i = 0; i < 2; i++)
 			{
+				globalB[itemNumber + i] += localB[i];
 				int i_i = elementConnections[itemNumber][i];
 				di[itemNumber + i] += matrixG[i][i];
 				for (int j = 0; j < i; j++)
