@@ -6,50 +6,33 @@ using namespace std;
 class CalcOverflows
 {
 public:
+	Init Mixture;
+
 	void PhaseFlows(Init Object, vector <double> pressure);
 
 	void TimeStep(Init Object);
 
 	void PhaseVolumesAndSaturations(Init Object);
 
-	void ÑomponentProperties();
+	void ÑomponentProperties(Init Object);
 
 	CalcOverflows(Init Object, vector <double> pressure)
 	{
-		PhaseFlows(Object, pressure);
-		TimeStep(Object);
-		PhaseVolumesAndSaturations(Object);
-		ÑomponentProperties();
+		Mixture = Object;
+		Mixture.phases[0].alfa.resize(Object.elements.size() + 1);
+		Mixture.phases[1].alfa.resize(Object.elements.size() + 1);
+		Mixture.flow.resize(Object.elements.size() + 1);
+		Mixture.phases[0].flow.resize(Object.elements.size() + 1);
+		Mixture.phases[1].flow.resize(Object.elements.size() + 1);
+		Mixture.phases[0].volumeOut.resize(Object.elements.size() + 1);
+		Mixture.phases[1].volumeOut.resize(Object.elements.size() + 1);
+		Mixture.phases[0].volumeCur.resize(Object.elements.size() + 1);
+		Mixture.phases[1].volumeCur.resize(Object.elements.size() + 1);
 
-		fxi << endl;
-		for (int e = 1; e < n; e++)
-		{
-			fxi << fixed;
-			fxi.precision(3);
-			fxi << scientific << x[1][e] << " ";
-		}
-
-		total_V_out_oil += V_out[1][n - 1];
-		total_V_out_water += V_out[0][n - 1];
-
-		ftotal_oil << total_V_out_oil << endl;
-		ftotal_water << total_V_out_water << endl;
-		fcalc << endl << endl << "total_V_out_oil: " << total_V_out_oil;
-		fcalc << endl << endl << "total_V_out_water: " << total_V_out_water;
-		fcalc << endl << "Ñóììàðíûé ïåðåòåêàþùèé îáú¸ì âîäû: " << summ_v[0];
-		fcalc << endl << "Ñóììàðíûé ïåðåòåêàþùèé îáú¸ì íåôòè: " << summ_v[1];
-
-		fcalc << endl << endl << "Ïåðåòåêàþùèå îáú¸ìû äëÿ êàæäîé ôàçû ïî ãðàíèöå êàæäîãî êý:" << endl;
-		for (int i = 0; i < 2; i++)
-		{
-			for (int j = 0; j < V_out[i].size(); j++)
-			{
-				fcalc << fixed;
-				fcalc.precision(5);
-				fcalc << scientific << V_out[i][j] << " ";
-			}
-			fcalc << endl;
-		}
+		PhaseFlows(Mixture, pressure);
+		TimeStep(Mixture);
+		PhaseVolumesAndSaturations(Mixture);
+		ÑomponentProperties(Mixture);
 	}
 };
 

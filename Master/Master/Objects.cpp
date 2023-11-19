@@ -47,12 +47,12 @@ void Init::ReadingParameters(string parameters)
 	vector <double> amountOfSubstanceCur;
 	vector<Component> components;
 
-	saturationCur.resize(elements.size());
-	multiplierToPhasePermeabilityCur.resize(elements.size());
-	viscosityCur.resize(elements.size());
-	densityCur.resize(elements.size());
-	massFractionCur.resize(elements.size());
-	amountOfSubstanceCur.resize(elements.size());
+	saturationCur.resize(elements.size() + 1);
+	densityCur.resize(elements.size() + 1);
+	massFractionCur.resize(elements.size() + 1);
+	amountOfSubstanceCur.resize(elements.size() + 1);
+	multiplierToPhasePermeabilityCur.resize(elements.size() + 1);
+	viscosityCur.resize(elements.size() + 1);
 
 	// чтение параметров породы
 	fParam >> porosity >> permeability;
@@ -68,23 +68,23 @@ void Init::ReadingParameters(string parameters)
 	for (int i = 0; i < countPhase; i++)
 	{
 		fParam >> numberPhase;
-		for (int k = 0; k < elements.size(); k++)
+		for (int k = 0; k < elements.size() + 1; k++)
 			fParam >> saturationCur[k];
-		for (int k = 0; k < elements.size(); k++)
-			fParam >> multiplierToPhasePermeabilityCur[k];
-		for (int k = 0; k < elements.size(); k++)
-			fParam >> viscosityCur[k];
-		for (int k = 0; k < elements.size(); k++)
+		for (int k = 0; k < elements.size() + 1; k++)
 			fParam >> densityCur[k];
+		for (int k = 0; k < elements.size() + 1; k++)
+			fParam >> multiplierToPhasePermeabilityCur[k];
+		for (int k = 0; k < elements.size() + 1; k++)
+			fParam >> viscosityCur[k];
 
 		fParam >> countComponent;
 		components.resize(countComponent);
 		for (int j = 0; j < countComponent; j++)
 		{
 			fParam >> numberComponent;
-			for (int k = 0; k < elements.size(); k++)
+			for (int k = 0; k < elements.size() + 1; k++)
 				fParam >> massFractionCur[k];
-			for (int k = 0; k < elements.size(); k++)
+			for (int k = 0; k < elements.size() + 1; k++)
 				fParam >> amountOfSubstanceCur[k];
 			components[j] = Component(numberComponent, massFractionCur, amountOfSubstanceCur);
 		}

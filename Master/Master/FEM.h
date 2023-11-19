@@ -75,7 +75,7 @@ public:
 		}
 		au = al;
 
-		BoundaryConditions2(Object.Q0);
+		BoundaryConditions2(Object.flow0);
 		BoundaryConditions1(Object.elements);
 		LUDecomposition(Object.elements.size() + 1);
 		StraightRun(Object.elements.size() + 1);
