@@ -32,8 +32,9 @@ void FEM::Portrait(vector <FiniteElement> elements)
 
 void FEM::BuildingGLocal(int number, Init Object)
 {
-	double multiplier = Object.K * (Object.phases[0].multiplierToPhasePermeability[number] / 
-		Object.phases[0].viscosity[number] + Object.phases[1].multiplierToPhasePermeability[number] / Object.phases[1].viscosity[number])
+	double multiplier = Object.permeability * 
+		(Object.phases[0].multiplierToPhasePermeability[number] / Object.phases[0].viscosity[number] 
+			+ Object.phases[1].multiplierToPhasePermeability[number] / Object.phases[1].viscosity[number])
 		/ (Object.elements[number].xEnd - Object.elements[number].xBegin);
 	matrixG[0][0] = multiplier;
 	matrixG[0][1] = -multiplier;
@@ -108,7 +109,7 @@ void FEM::BoundaryConditions1(vector <FiniteElement> elem) // стр 237
 	double B = 1e+10, sum = 0;
 	double x1, x2;
 	x1 = elem[0].xBegin;
-	x2 = elem[elem.size() - 1].xEnd;
+	x2 = elem.back().xEnd;
 	double res1 = Test(x1) * 101325.0;
 	double res2 = Test(x2) * 101325.0;
 	/*double res1 = test(x1);

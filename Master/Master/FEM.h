@@ -47,8 +47,8 @@ public:
 		for (int ii = 0; ii < 2; ii++)
 			matrixG[ii].resize(2, 0.0);
 		localB.resize(2);
-		al.resize(ia[ia.size() - 1], 0.0);
-		au.resize(ia[ia.size() - 1], 0.0);
+		al.resize(ia.back(), 0.0);
+		au.resize(ia.back(), 0.0);
 		di.resize(Object.elements.size() + 1, 0.0);
 		globalB.resize(Object.elements.size() + 1, 0.0);
 		double h;
@@ -75,7 +75,7 @@ public:
 		}
 		au = al;
 
-		BoundaryConditions2(Object.Q0);
+		BoundaryConditions2(Object.flow0);
 		BoundaryConditions1(Object.elements);
 		LUDecomposition(Object.elements.size() + 1);
 		StraightRun(Object.elements.size() + 1);
